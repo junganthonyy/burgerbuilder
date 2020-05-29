@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+
 import Aux from '../../hoc/Aux';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
@@ -89,12 +91,20 @@ class BurgerBuilder extends Component {
   }
 
   purchaseContinueHandler = () => {
-    alert('You continued!');
+    // alert('You continued!');
+
+    console.log('THIS IS THE CONTINUED PROPS');
+    console.log(this.props.history.push);
+
+
+
+    this.props.history.push('/checkout', [this.state.ingredients]);
+
   }
 
   render() {
     const disabledInfo = {
-      ...this.state.ingredients
+      ...this.state.ingredientsingredients
     }
     for (let key in disabledInfo) {
       disabledInfo[key] = disabledInfo[key] <= 0
@@ -124,4 +134,4 @@ class BurgerBuilder extends Component {
   }
 }
 
-export default BurgerBuilder;
+export default withRouter(BurgerBuilder);

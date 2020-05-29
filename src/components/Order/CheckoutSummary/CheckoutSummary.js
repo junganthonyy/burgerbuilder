@@ -8,7 +8,6 @@ import classes from './CheckoutSummary.css';
 
 
 function checkoutSummary(props) {
-  console.log(props)
   return (
     <div className={classes.CheckoutSummary}>
       <h1>We hope it tastes great!</h1>

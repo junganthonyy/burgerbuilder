@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+// import { withRouter } from 'react-router-dom';
 
 import Aux from '../../hoc/Aux';
 import Burger from '../../components/Burger/Burger';
@@ -111,39 +111,38 @@ class BurgerBuilder extends Component {
     // alert('You continued!');
 
     console.log('THIS IS THE CONTINUED PROPS');
-    console.log(this.props.history.push);
-
-
+    console.log(this.props.history);
 
     this.props.history.push('/checkout', [this.state.ingredients]);
-    this.setState({loading: true})
-    const order = {
-      ingredients: this.state.ingredients,
-      price: this.state.totalPrice,
-      customer: {
-        name: 'Example Guy',
-        address: {
-          street: 'teststreet',
-          zipCode: '41351'
-        },
-        email: 'test@test.com'
-      },
-      deliveryMethod: 'fastest'
-    }
 
-    axios.post('/orders', order)
-      .then(res => {
-        this.setState({
-          loading: false,
-          purchasing: false
-        });
-      })
-      .catch(err => {
-        this.setState({
-          loading: false,
-          purchasing: false
-        });
-      })
+    // this.setState({loading: true})
+    // const order = {
+    //   ingredients: this.state.ingredients,
+    //   price: this.state.totalPrice,
+    //   customer: {
+    //     name: 'Example Guy',
+    //     address: {
+    //       street: 'teststreet',
+    //       zipCode: '41351'
+    //     },
+    //     email: 'test@test.com'
+    //   },
+    //   deliveryMethod: 'fastest'
+    // }
+
+    // axios.post('/orders', order)
+    //   .then(res => {
+    //     this.setState({
+    //       loading: false,
+    //       purchasing: false
+    //     });
+    //   })
+    //   .catch(err => {
+    //     this.setState({
+    //       loading: false,
+    //       purchasing: false
+    //     });
+    //   })
 
   }
 
@@ -196,4 +195,4 @@ class BurgerBuilder extends Component {
   }
 }
 
-export default withRouter(withErrorHandler(BurgerBuilder, axios));
+export default withErrorHandler(BurgerBuilder, axios);

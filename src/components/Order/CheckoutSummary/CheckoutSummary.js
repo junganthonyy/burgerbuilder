@@ -7,7 +7,8 @@ import classes from './CheckoutSummary.css';
 // buttons to continue or cancel
 
 
-export default function checkoutSummary(props) {
+function checkoutSummary(props) {
+  console.log(props)
   return (
     <div className={classes.CheckoutSummary}>
       <h1>We hope it tastes great!</h1>
@@ -16,12 +17,14 @@ export default function checkoutSummary(props) {
       </div>
       <Button 
         btnType="Danger"
-        clicked
+        clicked={props.onCheckoutCanceled}
         >CANCEL</Button>
       <Button 
         btnType="Success"
-        clicked
+        clicked={props.onCheckoutContinued}
         >CONTINUE</Button>
     </div>
   )
 }
+
+export default checkoutSummary;

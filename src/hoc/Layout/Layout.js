@@ -4,6 +4,8 @@ import classes from './Layout.css';
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
 import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
 
+import { connect } from 'react-redux';
+
 class Layout extends React.Component{
 
   state = {
@@ -23,8 +25,15 @@ class Layout extends React.Component{
   render() {
     return (
       <Aux>
-        <Toolbar drawerToggleClicked={this.sideDrawerToggleHandler}/>
-        <SideDrawer open={this.state.showSideDrawer} closed={this.sideDrawerClosedHandler} />
+        <Toolbar 
+          drawerToggleClicked={this.sideDrawerToggleHandler}
+          isAuth={this.props.isAuthenticated}
+        />
+        <SideDrawer 
+          open={this.state.showSideDrawer}
+          closed={this.sideDrawerClosedHandler}
+          isAuth={this.props.isAuthenticated}
+        />
         <main className={classes.Content}>
           {this.props.children}
         </main>
@@ -32,9 +41,20 @@ class Layout extends React.Component{
     );
   } 
 }
-  
 
-export default Layout;
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticated: state.auth.token !== null
+  }
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Layout);
 
 /**
  * Layout is just meant to be the base layer for the app

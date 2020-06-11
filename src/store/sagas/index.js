@@ -1,7 +1,12 @@
 import { takeEvery } from 'redux-saga/effects';
 
 import * as actionTypes from '../actions/actionTypes';
-import { logoutSaga, checkAuthTimeoutSaga, authUserSaga } from './auth';
+import {
+  authUserSaga,
+  authCheckStateSaga,
+  checkAuthTimeoutSaga,
+  logoutSaga
+} from './auth';
 
 /**
  * What happens is when we see the AUTH_INITIATE_LOGOUT
@@ -17,4 +22,5 @@ export function* watchAuth() {
   yield takeEvery(actionTypes.AUTH_INITIATE_LOGOUT, logoutSaga);
   yield takeEvery(actionTypes.AUTH_CHECK_TIMEOUT, checkAuthTimeoutSaga);
   yield takeEvery(actionTypes.AUTH_USER, authUserSaga);
+  yield takeEvery(actionTypes.AUTH_CHECK_STATE, authCheckStateSaga);
 }

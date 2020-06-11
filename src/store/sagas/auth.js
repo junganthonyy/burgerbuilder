@@ -25,53 +25,46 @@ export function* checkAuthTimeoutSaga (action) {
 }
 
 export function* authUserSaga (action) {
-  // dispatch(authStart());
-    
-  //   const authData = {
-  //     email,
-  //     password,
-  //     returnSecureToken: true
-  //   }
-  //   let url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCcLNGbxgq_Dzxf1pndYqzZTfFnHzUT-ag';
-  //   if (!isSignup) {
-  //     url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCcLNGbxgq_Dzxf1pndYqzZTfFnHzUT-ag'
-  //   }
-
-  //   axios.post(url, authData)
-  //     .then((res) => {
-  //       const expirationDate = new Date(new Date().getTime() + res.data.expiresIn * 1000);
-  //       localStorage.setItem('token', res.data.idToken);
-  //       localStorage.setItem('expirationDate', expirationDate);
-  //       localStorage.setItem('userId', res.data.localId);
-  //       dispatch(authSuccess(res.data.idToken, res.data.localId));
-  //       dispatch(checkAuthTimeout(res.data.expiresIn));
-  //     })
-  //     .catch(err => {
-  //       dispatch(authFail(err.response.data.error));
-  //     });
-
   yield put(actions.authStart());
-    const authData = {
-      email: action.email,
-      password: action.password,
-      returnSecureToken: true
-    }
-    let url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCcLNGbxgq_Dzxf1pndYqzZTfFnHzUT-ag';
-    if (!action.isSignup) {
-      url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCcLNGbxgq_Dzxf1pndYqzZTfFnHzUT-ag'
-    }
-  
-    try {
-      const res = yield axios.post(url, authData);
-      const expirationDate = yield new Date(new Date().getTime() + res.data.expiresIn * 1000);
-      yield localStorage.setItem('token', res.data.idToken);
-      yield localStorage.setItem('expirationDate', expirationDate);
-      yield localStorage.setItem('userId', res.data.localId);
-      yield put(actions.authSuccess(res.data.idToken, res.data.localId));
-      yield put(actions.checkAuthTimeout(res.data.expiresIn));
 
-    } catch (err) {
-      yield put(actions.authFail(err.response.data.error));
+  const authData = {
+    email: action.email,
+    password: action.password,
+    returnSecureToken: true
+  }
+
+  let url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCcLNGbxgq_Dzxf1pndYqzZTfFnHzUT-ag';
+  
+  if (!action.isSignup) {
+    url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCcLNGbxgq_Dzxf1pndYqzZTfFnHzUT-ag'
+  }
+
+  try {
+    const res = yield axios.post(url, authData);
+    const expirationDate = yield new Date(new Date().getTime() + res.data.expiresIn * 1000);
+    yield localStorage.setItem('token', res.data.idToken);
+    yield localStorage.setItem('expirationDate', expirationDate);
+    yield localStorage.setItem('userId', res.data.localId);
+    yield put(actions.authSuccess(res.data.idToken, res.data.localId));
+    yield put(actions.checkAuthTimeout(res.data.expiresIn));
+
+  } catch (err) {
+    yield put(actions.authFail(err.response.data.error));
+  }   
+}
+
+export function* authCheckStateSaga(action) {
+  const token = yield localStorage.getItem('token');
+  if (!token) {
+    yield put(actions.logout());
+  } else {
+    const expirationDate = new Date(yield localStorage.getItem('expirationDate'));
+    if (expirationDate > new Date()) {
+      const userId = yield localStorage.getItem('userId');
+      yield put(actions.authSuccess(token, userId));
+      yield put(actions.checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000));
+    } else {
+      yield put(actions.logout());
     }
-    
+  }
 }

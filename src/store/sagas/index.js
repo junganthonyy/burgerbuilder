@@ -10,6 +10,10 @@ import {
 import {
   initIngredientsSaga
 } from './burgerBuilder';
+import {
+  fetchOrdersSaga,
+  purchaseBurgerSaga
+} from './order';
 
 /**
  * What happens is when we see the AUTH_INITIATE_LOGOUT
@@ -26,8 +30,15 @@ export function* watchAuth() {
   yield takeEvery(actionTypes.AUTH_CHECK_TIMEOUT, checkAuthTimeoutSaga);
   yield takeEvery(actionTypes.AUTH_USER, authUserSaga);
   yield takeEvery(actionTypes.AUTH_CHECK_STATE, authCheckStateSaga);
+  yield takeEvery(actionTypes.FETCH_ORDERS_INIT, authCheckStateSaga);
+
 }
 
 export function* watchBugerBuilder() {
   yield takeEvery(actionTypes.INIT_INGREDIENTS, initIngredientsSaga);
+}
+
+export function* watchOrder() {
+  yield takeEvery(actionTypes.FETCH_ORDERS, fetchOrdersSaga);
+  yield takeEvery(actionTypes.PURCHASE_BURGER, purchaseBurgerSaga);
 }

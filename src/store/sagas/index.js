@@ -1,4 +1,4 @@
-import { takeEvery } from 'redux-saga/effects';
+import { all, takeEvery, takeLatest } from 'redux-saga/effects';
 
 import * as actionTypes from '../actions/actionTypes';
 import {
@@ -26,19 +26,24 @@ import {
  * action that the reducer can listen for?
  */
 export function* watchAuth() {
-  yield takeEvery(actionTypes.AUTH_INITIATE_LOGOUT, logoutSaga);
-  yield takeEvery(actionTypes.AUTH_CHECK_TIMEOUT, checkAuthTimeoutSaga);
-  yield takeEvery(actionTypes.AUTH_USER, authUserSaga);
-  yield takeEvery(actionTypes.AUTH_CHECK_STATE, authCheckStateSaga);
-  yield takeEvery(actionTypes.FETCH_ORDERS_INIT, authCheckStateSaga);
-
+  yield all([
+    takeEvery(actionTypes.AUTH_INITIATE_LOGOUT, logoutSaga),
+    takeEvery(actionTypes.AUTH_CHECK_TIMEOUT, checkAuthTimeoutSaga),
+    takeEvery(actionTypes.AUTH_USER, authUserSaga),
+    takeEvery(actionTypes.AUTH_CHECK_STATE, authCheckStateSaga),
+    takeEvery(actionTypes.FETCH_ORDERS_INIT, authCheckStateSaga),
+  ]);
 }
 
 export function* watchBugerBuilder() {
   yield takeEvery(actionTypes.INIT_INGREDIENTS, initIngredientsSaga);
 }
 
+/*
+takeLatest will only run the latest call of the function
+useful incase the user spams the buttons
+*/
 export function* watchOrder() {
-  yield takeEvery(actionTypes.FETCH_ORDERS, fetchOrdersSaga);
+  yield takeLatest(actionTypes.FETCH_ORDERS, fetchOrdersSaga);
   yield takeEvery(actionTypes.PURCHASE_BURGER, purchaseBurgerSaga);
 }

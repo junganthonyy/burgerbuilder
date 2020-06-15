@@ -1,4 +1,4 @@
-import { put, delay } from 'redux-saga/effects';
+import { put, call, delay } from 'redux-saga/effects';
 import * as actions from '../actions/index';
 import axios from 'axios';
 
@@ -9,9 +9,9 @@ import axios from 'axios';
  * put I think is the equivalent of dispatching an action?
  */
 export function* logoutSaga (action) {
-  yield localStorage.removeItem('token');
-  yield localStorage.removeItem('expirationDate');
-  yield localStorage.removeItem('userId');
+  yield call([localStorage, 'removeItem'], 'token');
+  yield call([localStorage, 'removeItem'], 'expirationDate');
+  yield call([localStorage, 'removeItem'], 'userId');
 
   yield put(actions.logoutSucceed());
 }

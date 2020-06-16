@@ -4,9 +4,10 @@ import { Redirect } from 'react-router-dom';
 import * as actionTypes from '../../../store/actions/index';
 
 const logout = (props) => {
+  const { onLogout } = props;
   useEffect(() => {
-    props.onLogout();
-  }, []);
+    onLogout();
+  }, [onLogout]);
 
   return (
     <Redirect to='/'/>

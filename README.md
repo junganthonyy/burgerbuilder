@@ -1,6 +1,8 @@
 # Burger Builder
 
-A Burger Building application practice of React, Redux, React Router and Firebase. This is a single page application that is mobile responsive and has authentication via Firebase. This was bootstraped with Create-React-App. To see a deployed version of this app, please follow this link: https://react-my-burger-43fa8.web.app/.
+A Burger Building application practice of React, Redux, React Router and Firebase. This is a single page application that is mobile responsive and has authentication via Firebase. This was bootstraped with Create-React-App. To see a deployed version of this app, please follow this link: https://react-my-burger-43fa8.web.app/. Feel free to create a new account in the system or use this test account:
+Username: 123@test.com
+Password: 123456
 
 ## Getting Started
 

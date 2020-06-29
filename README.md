@@ -1,13 +1,16 @@
 # Burger Builder
 
-A Burger Building application practice of React, Redux, React Router and Firebase. This is a single page application that is mobile responsive and has authentication via Firebase. This was bootstraped with Create-React-App. To see a deployed version of this app, please follow this link: https://react-my-burger-43fa8.web.app/. Feel free to create a new account in the system or use this test account:
+A Burger Building application practice of React, Redux, React Router and Firebase. This is a single page application that is mobile responsive and has authentication via Firebase. This was bootstraped with Create-React-App. To see a deployed version of this app, please follow this link: **https://react-my-burger-43fa8.web.app/**. Feel free to create a new account in the system or use this test account:
 
 Username: 123@test.com
+
 Password: 123456
+
+There are multiple branches here. The **Master** branch utilizes Redux-Thunk for async state management, **Switching-To-Saga** branch utilizes Redux-Saga for async state management, and **React-Hooks-Conversion** branch converts the master project to only using React Hooks and functional components.
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system. 
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 ### Prerequisites
 
